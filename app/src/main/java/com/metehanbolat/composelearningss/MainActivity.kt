@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -32,58 +33,36 @@ import androidx.compose.ui.unit.sp
 import com.metehanbolat.composelearningss.ui.theme.ComposeLearningSSTheme
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeLearningSSTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.LightGray)
+                        .padding(24.dp)
+                ) {
+                    ExpandableCard(
+                        title = "My Title",
+                        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                                "Maecenas eu ultrices est. Vestibulum et tortor massa. " +
+                                "Proin facilisis urna leo, ac sollicitudin dolor vestibulum nec. " +
+                                "Quisque ultricies porta vehicula. Nullam eu mattis enim."+
+                                "Maecenas eu ultrices est. Vestibulum et tortor massa. " +
+                                "Proin facilisis urna leo, ac sollicitudin dolor vestibulum nec. "
+                    )
                 }
             }
         }
     }
 }
 
-@Composable
-fun SuperScriptText(
-    normalText : String,
-    normalFontSize: TextUnit = MaterialTheme.typography.subtitle1.fontSize,
-    superTextFontSize: TextUnit = MaterialTheme.typography.subtitle2.fontSize,
-    superText : String
-) {
-
-    Text(
-        buildAnnotatedString {
-            withStyle(style = SpanStyle(
-                fontSize = normalFontSize
-            )){
-                append(normalText)
-            }
-            withStyle(style = SpanStyle(
-                fontSize = superTextFontSize,
-                fontWeight = FontWeight.Normal,
-                baselineShift = BaselineShift.Superscript
-            )){
-                append(superText)
-            }
-            withStyle(style = SpanStyle(
-                fontSize = MaterialTheme.typography.overline.fontSize,
-                fontWeight = FontWeight.Normal,
-                baselineShift = BaselineShift.Subscript
-            )){
-                append(superText)
-            }
-        }
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ComposeLearningSSTheme {
-        Column(modifier = Modifier.fillMaxSize()){
-            SuperScriptText(normalText = "Hello", superText = "World")
-        }
+
     }
 }
