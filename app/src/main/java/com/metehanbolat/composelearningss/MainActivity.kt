@@ -26,26 +26,9 @@ class MainActivity : ComponentActivity() {
             ComposeLearningSSTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting()
+
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun Greeting() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        Box(modifier = Modifier
-            .background(Color.Blue)
-        ){
-            Box(modifier = Modifier.height(50.dp).width(50.dp).background(Color.Green)) {
-
-            }
-            Text(text = "I Love Android", fontSize = 40.sp)
         }
     }
 }
@@ -54,6 +37,16 @@ fun Greeting() {
 @Composable
 fun DefaultPreview() {
     ComposeLearningSSTheme {
-       Greeting()
+        Column(modifier = Modifier.fillMaxSize()){
+            Text(
+                text = "Hello World",
+                modifier = Modifier
+                    //Background'u önce verirsek padding olmadan boyar.
+                    //Background'u sonra verirsek sadece textin oldugu yeri boyar.
+                    .background(MaterialTheme.colors.primary)
+                    .padding(16.dp)
+
+            )
+        }
     }
 }
