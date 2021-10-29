@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.DisableSelection
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -34,7 +36,7 @@ class MainActivity : ComponentActivity() {
             ComposeLearningSSTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-
+                    CustomText()
                 }
             }
         }
@@ -43,45 +45,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CustomText() {
-    Text(
-        text = stringResource(id = R.string.app_name),
-        modifier = Modifier
-            //Background'u önce verirsek padding olmadan boyar.
-            //Background'u sonra verirsek sadece textin oldugu yeri boyar.
-            .background(MaterialTheme.colors.primary)
-            .padding(16.dp)
-            .background(MaterialTheme.colors.secondary)
-            .width(200.dp),
-        color = Color.White,
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Bold,
-        textAlign = TextAlign.End
-    )
-}
-
-@Composable
-fun CustomText2() {
-    Text(
-        buildAnnotatedString {
-            withStyle(style = ParagraphStyle(textAlign = TextAlign.Center)){
-                withStyle(style = SpanStyle(
-                    color = MaterialTheme.colors.primary,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
-                )){
-                    append("A")
-                }
-                append("B")
-                append("C")
-                append("D")
+    SelectionContainer() {
+        Row {
+            Text(text = "Hello World")
+            DisableSelection {
+                Text(text = "Hello World")
             }
-        }, modifier = Modifier.width(200.dp)
-    )
-}
+            Text(text = "Hello World")
+        }
+    }
 
-@Composable
-fun CustomText3() {
-    Text(text = "Hello World".repeat(20), maxLines = 2, overflow = TextOverflow.Ellipsis)
 }
 
 @Preview(showBackground = true)
@@ -89,7 +62,7 @@ fun CustomText3() {
 fun DefaultPreview() {
     ComposeLearningSSTheme {
         Column(modifier = Modifier.fillMaxSize()){
-            CustomText3()
+
         }
     }
 }
