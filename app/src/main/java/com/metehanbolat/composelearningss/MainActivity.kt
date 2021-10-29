@@ -21,10 +21,12 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.metehanbolat.composelearningss.ui.theme.ComposeLearningSSTheme
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
             ComposeLearningSSTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    CustomText()
+
                 }
             }
         }
@@ -44,17 +46,36 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CustomText() {
-    SelectionContainer() {
-        Row {
-            Text(text = "Hello World")
-            DisableSelection {
-                Text(text = "Hello World")
-            }
-            Text(text = "Hello World")
-        }
-    }
+fun SuperScriptText(
+    normalText : String,
+    normalFontSize: TextUnit = MaterialTheme.typography.subtitle1.fontSize,
+    superTextFontSize: TextUnit = MaterialTheme.typography.subtitle2.fontSize,
+    superText : String
+) {
 
+    Text(
+        buildAnnotatedString {
+            withStyle(style = SpanStyle(
+                fontSize = normalFontSize
+            )){
+                append(normalText)
+            }
+            withStyle(style = SpanStyle(
+                fontSize = superTextFontSize,
+                fontWeight = FontWeight.Normal,
+                baselineShift = BaselineShift.Superscript
+            )){
+                append(superText)
+            }
+            withStyle(style = SpanStyle(
+                fontSize = MaterialTheme.typography.overline.fontSize,
+                fontWeight = FontWeight.Normal,
+                baselineShift = BaselineShift.Subscript
+            )){
+                append(superText)
+            }
+        }
+    )
 }
 
 @Preview(showBackground = true)
@@ -62,7 +83,7 @@ fun CustomText() {
 fun DefaultPreview() {
     ComposeLearningSSTheme {
         Column(modifier = Modifier.fillMaxSize()){
-
+            SuperScriptText(normalText = "Hello", superText = "World")
         }
     }
 }
